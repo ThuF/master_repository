@@ -1,0 +1,26 @@
+<style>
+.tool {
+	margin:10px 0;
+}
+.nav-stacked>li+li {
+     margin: 0; 
+}
+.nav>li {
+	border-bottom: 1px solid #ccc;
+}
+.nav>li>a:focus {
+    background-color: transparent;
+}
+</style>
+
+<div class="btn btn-primary tool" ng-click="masterVm.createItem()">
+	<i class="fa fa-plus"></i>
+</div>
+
+<ul class="nav nav-pills nav-stacked">
+	<li ng-repeat="item in masterVm.list" role="presentation">
+		<a href = "{{item.url}}" target="_blank">
+	        <span class="title" ng-bind="item.application_name"></span>
+	    </a>
+    </li>    
+</ul>

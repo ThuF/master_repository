@@ -1,0 +1,32 @@
+{
+  "tableName":"zeus_deployment_container_templates",
+  "columns":
+    [
+      {
+        "name":"ID",
+        "type":"INTEGER",
+        "length":"0",
+        "notNull":"true",
+        "primaryKey":"true",
+        "defaultValue":""
+      }
+      ,
+      {
+        "name":"DEPLOYMENT_TEMPLATE_ID",
+        "type":"INTEGER",
+        "length":"0",
+        "notNull":"true",
+        "primaryKey":"false",
+        "defaultValue":""
+      }
+      ,
+      {
+        "name":"CONTAINER_TEMPLATE_ID",
+        "type":"INTEGER",
+        "length":"0",
+        "notNull":"true",
+        "primaryKey":"false",
+        "defaultValue":""
+      }
+    ]
+}

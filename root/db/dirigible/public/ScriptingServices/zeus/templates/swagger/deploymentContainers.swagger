@@ -1,0 +1,194 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Deployment_container_templates Entity Service",
+        "description":"This is a RESTful web service for listing, viewing and managing entities of the type 'Deployment_container_templates'"
+    },
+    "basePath":"/services",
+    "tags":[
+      {
+         "name":"Deployment_container_templates",
+         "description":"View and manage Deployment_container_templates objects"
+      }
+    ],
+    "paths": {
+        "/js/zeus/templates/deploymentContainers.js": {
+            "get": {
+            	"tags":[
+               		"Deployment_container_templates"
+            	],
+                "description": "Gets 'Deployment_container_templates' objects.\n",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of all the records",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Identifier of the 'Deployment_container_templates' object",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "metadata",
+                        "in": "query",
+                        "description": "Metadata of the 'Deployment_container_templates' object",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort parameter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Descending order",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Deployment_container_templates"
+                        }
+                    }
+                }
+            },
+            "post": {
+            	"tags":[
+               		"Deployment_container_templates"
+            	],
+                "description": "Creates a new 'Deployment_container_templates' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Deployment_container_templates object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Deployment_container_templates"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Deployment_container_templates"
+                        }
+                    }
+                }
+            },
+            "put": {
+            	"tags":[
+               		"Deployment_container_templates"
+            	],
+                "description": "Updates an existing 'Deployment_container_templates' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Deployment_container_templates object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Deployment_container_templates"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Deployment_container_templates"
+                        }
+                    }
+                }
+            },
+            "delete": {
+            	"tags":[
+               		"Deployment_container_templates"
+            	],
+                "description": "Deletes 'Deployment_container_templates' objects.\n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Identifier of the 'Deployment_container_templates' object",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Deployment_container_templates"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Deployment_container_templates": {
+	        "type":"object",
+	        "properties": {
+        		"id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"deployment_template_id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"container_template_id": {
+	            	"type": 
+        "integer"
+	    		}
+	        }
+        }
+	}
+}

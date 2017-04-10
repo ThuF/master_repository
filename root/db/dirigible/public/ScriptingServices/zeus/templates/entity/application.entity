@@ -1,0 +1,15 @@
+{
+  "entityName":"Application_templates",
+  "tableName":"ZEUS_APPLICATION_TEMPLATES",
+  "tableType":"TABLE",
+  "serviceName":"application.js",
+  "libraryName":"applicationDao.js",
+  "specification":"application.swagger",
+  "getEnabled":"true",
+  "postEnabled":"true",
+  "putEnabled":"true",
+  "deleteEnabled":"true",
+  "countEnabled":"true",
+  "offsetAndLimitEnabled":"true",
+  "metadataEnabled":"true"
+}

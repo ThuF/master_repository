@@ -1,0 +1,103 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Template_types Entity Service",
+        "description":"This is a RESTful web service for listing, viewing and managing entities of the type 'Template_types'"
+    },
+    "basePath":"/services",
+    "tags":[
+      {
+         "name":"Template_types",
+         "description":"View Template_types objects"
+      }
+    ],
+    "paths": {
+        "/js/zeus/templates/types.js": {
+            "get": {
+            	"tags":[
+               		"Template_types"
+            	],
+                "description": "Gets 'Template_types' objects.\n",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of all the records",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Identifier of the 'Template_types' object",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "metadata",
+                        "in": "query",
+                        "description": "Metadata of the 'Template_types' object",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort parameter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Descending order",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Template_types"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Template_types": {
+	        "type":"object",
+	        "properties": {
+        		"id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"name": {
+	            	"type": 
+        "string"
+	    		}
+	        }
+        }
+	}
+}

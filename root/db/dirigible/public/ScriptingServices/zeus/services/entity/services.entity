@@ -1,0 +1,15 @@
+{
+  "entityName":"Zeus_services",
+  "tableName":"ZEUS_SERVICES",
+  "tableType":"TABLE",
+  "serviceName":"services.js",
+  "libraryName":"services_lib.js",
+  "specification":"services.swagger",
+  "getEnabled":"true",
+  "postEnabled":"true",
+  "putEnabled":"true",
+  "deleteEnabled":"true",
+  "countEnabled":"true",
+  "offsetAndLimitEnabled":"true",
+  "metadataEnabled":"true"
+}

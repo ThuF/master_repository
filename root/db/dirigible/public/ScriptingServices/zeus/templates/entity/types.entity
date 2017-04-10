@@ -1,0 +1,14 @@
+{
+  "tableName":"ZEUS_TEMPLATE_TYPES",
+  "tableType":"TABLE",
+  "serviceName":"types.js",
+  "libraryName":"typesDao.js",
+  "specification":"types.swagger",
+  "getEnabled":"true",
+  "postEnabled":"false",
+  "putEnabled":"false",
+  "deleteEnabled":"false",
+  "countEnabled":"true",
+  "offsetAndLimitEnabled":"true",
+  "metadataEnabled":"true"
+}

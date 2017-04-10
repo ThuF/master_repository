@@ -1,0 +1,219 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Zeus_databases Entity Service",
+        "description":"This is a RESTful web service for listing, viewing and managing entities of the type 'Zeus_databases'"
+    },
+    "basePath":"/services",
+    "tags":[
+      {
+         "name":"Zeus_databases",
+         "description":"View and manage Zeus_databases objects"
+      }
+    ],
+    "paths": {
+        "/js/zeus/databases/databases.js": {
+            "get": {
+            	"tags":[
+               		"Zeus_databases"
+            	],
+                "description": "Gets 'Zeus_databases' objects.\n",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of all the records",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "db_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_databases' object",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "metadata",
+                        "in": "query",
+                        "description": "Metadata of the 'Zeus_databases' object",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort parameter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Descending order",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_databases"
+                        }
+                    }
+                }
+            },
+            "post": {
+            	"tags":[
+               		"Zeus_databases"
+            	],
+                "description": "Creates a new 'Zeus_databases' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Zeus_databases object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Zeus_databases"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_databases"
+                        }
+                    }
+                }
+            },
+            "put": {
+            	"tags":[
+               		"Zeus_databases"
+            	],
+                "description": "Updates an existing 'Zeus_databases' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Zeus_databases object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Zeus_databases"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_databases"
+                        }
+                    }
+                }
+            },
+            "delete": {
+            	"tags":[
+               		"Zeus_databases"
+            	],
+                "description": "Deletes 'Zeus_databases' objects.\n",
+                "parameters": [
+                    {
+                        "name": "db_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_databases' object",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_databases"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Zeus_databases": {
+	        "type":"object",
+	        "properties": {
+        		"db_id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"db_name": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"db_type": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"db_url": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"db_username": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"db_password": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"db_created_at": {
+	            	"type": 
+        "number"
+	    		}
+				,
+        		"db_created_by": {
+	            	"type": 
+        "string"
+	    		}
+	        }
+        }
+	}
+}

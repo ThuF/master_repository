@@ -1,0 +1,15 @@
+{
+  "entityName":"Deployment_templates",
+  "tableName":"ZEUS_DEPLOYMENT_TEMPLATES",
+  "tableType":"TABLE",
+  "serviceName":"deployment.js",
+  "libraryName":"deploymentDao.js",
+  "specification":"deployment.swagger",
+  "getEnabled":"true",
+  "postEnabled":"true",
+  "putEnabled":"true",
+  "deleteEnabled":"true",
+  "countEnabled":"true",
+  "offsetAndLimitEnabled":"true",
+  "metadataEnabled":"true"
+}

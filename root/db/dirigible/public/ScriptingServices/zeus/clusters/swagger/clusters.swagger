@@ -1,0 +1,219 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Zeus_clusters Entity Service",
+        "description":"This is a RESTful web service for listing, viewing and managing entities of the type 'Zeus_clusters'"
+    },
+    "basePath":"/services",
+    "tags":[
+      {
+         "name":"Zeus_clusters",
+         "description":"View and manage Zeus_clusters objects"
+      }
+    ],
+    "paths": {
+        "/js/zeus/clusters/clusters.js": {
+            "get": {
+            	"tags":[
+               		"Zeus_clusters"
+            	],
+                "description": "Gets 'Zeus_clusters' objects.\n",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of all the records",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "cluster_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_clusters' object",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "metadata",
+                        "in": "query",
+                        "description": "Metadata of the 'Zeus_clusters' object",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort parameter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Descending order",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_clusters"
+                        }
+                    }
+                }
+            },
+            "post": {
+            	"tags":[
+               		"Zeus_clusters"
+            	],
+                "description": "Creates a new 'Zeus_clusters' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Zeus_clusters object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Zeus_clusters"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_clusters"
+                        }
+                    }
+                }
+            },
+            "put": {
+            	"tags":[
+               		"Zeus_clusters"
+            	],
+                "description": "Updates an existing 'Zeus_clusters' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Zeus_clusters object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Zeus_clusters"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_clusters"
+                        }
+                    }
+                }
+            },
+            "delete": {
+            	"tags":[
+               		"Zeus_clusters"
+            	],
+                "description": "Deletes 'Zeus_clusters' objects.\n",
+                "parameters": [
+                    {
+                        "name": "cluster_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_clusters' object",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_clusters"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Zeus_clusters": {
+	        "type":"object",
+	        "properties": {
+        		"cluster_id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"cluster_account": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"cluster_region": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"cluster_domain": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"cluster_namespace": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"cluster_token": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"cluster_initiated_at": {
+	            	"type": 
+        "number"
+	    		}
+				,
+        		"cluster_initiated_by": {
+	            	"type": 
+        "string"
+	    		}
+	        }
+        }
+	}
+}

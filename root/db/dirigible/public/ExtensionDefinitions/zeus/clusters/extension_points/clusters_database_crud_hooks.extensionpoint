@@ -1,0 +1,4 @@
+{
+  "extension-point":"/zeus/clusters/extension_points/clusters_database_crud_hooks",
+  "description":"Database CRUD hooks for the '/ScriptingServices/zeus/clusters/clusters.js' service, managing the 'ZEUS_CLUSTERS' table"
+}

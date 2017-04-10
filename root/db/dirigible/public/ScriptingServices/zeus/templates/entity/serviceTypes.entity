@@ -1,0 +1,14 @@
+{
+  "tableName":"ZEUS_SERVICE_TYPES",
+  "tableType":"TABLE",
+  "serviceName":"serviceTypes.js",
+  "libraryName":"serviceTypesDao.js",
+  "specification":"serviceTypes.swagger",
+  "getEnabled":"true",
+  "postEnabled":"false",
+  "putEnabled":"false",
+  "deleteEnabled":"false",
+  "countEnabled":"true",
+  "offsetAndLimitEnabled":"true",
+  "metadataEnabled":"true"
+}

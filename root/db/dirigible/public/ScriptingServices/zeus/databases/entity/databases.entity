@@ -1,0 +1,15 @@
+{
+  "entityName":"Zeus_databases",
+  "tableName":"ZEUS_DATABASES",
+  "tableType":"TABLE",
+  "serviceName":"databases.js",
+  "libraryName":"databases_lib.js",
+  "specification":"databases.swagger",
+  "getEnabled":"true",
+  "postEnabled":"true",
+  "putEnabled":"true",
+  "deleteEnabled":"true",
+  "countEnabled":"true",
+  "offsetAndLimitEnabled":"true",
+  "metadataEnabled":"true"
+}

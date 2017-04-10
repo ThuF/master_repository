@@ -1,0 +1,15 @@
+{
+  "entityName":"Zeus_sites",
+  "tableName":"ZEUS_SITES",
+  "tableType":"TABLE",
+  "serviceName":"sites.js",
+  "libraryName":"sites_lib.js",
+  "specification":"sites.swagger",
+  "getEnabled":"true",
+  "postEnabled":"true",
+  "putEnabled":"true",
+  "deleteEnabled":"true",
+  "countEnabled":"true",
+  "offsetAndLimitEnabled":"true",
+  "metadataEnabled":"true"
+}

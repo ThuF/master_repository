@@ -1,0 +1,5 @@
+{
+  "extension":"/zeus/sites/extensions/sitesExtension",
+  "extension-point":"/zeus/sites/extension_points/sites_database_crud_hooks",
+  "description":"Database CRUD extension for the '/ScriptingServices/zeus/sites/sites.js' service, managing the 'ZEUS_SITES' table"
+}

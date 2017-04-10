@@ -1,0 +1,194 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Application_templates Entity Service",
+        "description":"This is a RESTful web service for listing, viewing and managing entities of the type 'Application_templates'"
+    },
+    "basePath":"/services",
+    "tags":[
+      {
+         "name":"Application_templates",
+         "description":"View and manage Application_templates objects"
+      }
+    ],
+    "paths": {
+        "/js/zeus/templates/application.js": {
+            "get": {
+            	"tags":[
+               		"Application_templates"
+            	],
+                "description": "Gets 'Application_templates' objects.\n",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of all the records",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Identifier of the 'Application_templates' object",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "metadata",
+                        "in": "query",
+                        "description": "Metadata of the 'Application_templates' object",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort parameter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Descending order",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Application_templates"
+                        }
+                    }
+                }
+            },
+            "post": {
+            	"tags":[
+               		"Application_templates"
+            	],
+                "description": "Creates a new 'Application_templates' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Application_templates object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Application_templates"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Application_templates"
+                        }
+                    }
+                }
+            },
+            "put": {
+            	"tags":[
+               		"Application_templates"
+            	],
+                "description": "Updates an existing 'Application_templates' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Application_templates object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Application_templates"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Application_templates"
+                        }
+                    }
+                }
+            },
+            "delete": {
+            	"tags":[
+               		"Application_templates"
+            	],
+                "description": "Deletes 'Application_templates' objects.\n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Identifier of the 'Application_templates' object",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Application_templates"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Application_templates": {
+	        "type":"object",
+	        "properties": {
+        		"id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"name": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"description": {
+	            	"type": 
+        "string"
+	    		}
+	        }
+        }
+	}
+}

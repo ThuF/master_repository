@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="page">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<title>Deployment Templates</title>
+
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/services/web/resources/css/forms.css">
+	<script src="/services/web/resources/themes/theme.js"></script>
+</style>
+</head>
+<body class="embedded">
+	<div id="wrap" ng-controller="ManageController">
+		<div class="row">
+			<div class="col-lg-12">
+		    	<h1 class="page-header">Deployment Templates</h1>
+			</div>
+		</div>
+		<div class="container">
+			<div class="alert alert-danger" ng-show="errorMessage">{{errorMessage}}</div>
+			<!-- entities table -->
+			<table class="table table-condensed">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="selected-{{entry._selected_}}" ng-repeat="entry in data"
+						ng-click="showInfoForEntry(entry)">
+						<td>{{entry.id}}</td>
+						<td>{{entry.name}}</td>
+						<td>{{entry.description}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<div>View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>10</option><option>20</option><option>50</option><option selected>100</option></select> records.<div>
+	    		<uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage" max-size="maxSize" boundary-links="true" force-ellipses="true" rotate="false"></uib-pagination>
+			</div>
+			
+			
+			<ul class="nav nav-tabs">
+			  <li class="active"><a data-toggle="tab" href="#application">Template</a></li>
+			  <li><a data-toggle="tab" href="#deployments">Deployments</a></li>
+			</ul>
+			
+			
+			<div class="tab-content">
+  				<div id="application" class="tab-pane fade in active">
+  				
+					<br>
+					<!-- new, edit and delete buttons -->
+					<div class="btn-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<input class="btn btn-default" type="button" value="New"
+							ng-click="setOperation('new')"
+							ng-disabled="errorMessage || operation == 'new' || operation == 'update'"> <input
+							class="btn btn-default" type="button" value="Edit"
+							ng-click="setOperation('update')"
+							ng-disabled="errorMessage || operation == 'new' || operation == 'update'"> <input
+							class="btn btn-default" type="button" value="Delete"
+							ng-click="delete()"
+							ng-disabled="errorMessage || operation == 'new' || operation == 'update'">
+					</div>
+					<br><br>
+					<div>
+						<!-- input form -->
+						<div>
+				  
+						  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+							<label>#</label>
+							<input type="text" class="form-control" 
+								ng-model="selectedEntry.id" readonly>
+						</div>
+				 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<label>Name</label>
+							<input type="text" class="form-control" 
+								ng-model="selectedEntry.name"
+								ng-readonly="operation == 'show'" required="required">
+						</div>
+				 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<label>Description</label>
+							<input type="text" class="form-control" 
+								ng-model="selectedEntry.description"
+								ng-readonly="operation == 'show'" required="required">
+						</div>
+						</div>
+				
+						<!-- save and cancel buttons -->
+						<div class="btn-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<br>
+							<input class="btn btn-primary" type="button" value="Save" ng-show="operation == 'new' || operation == 'update'"
+								ng-click="confirmAction()"> 
+							<input class="btn btn-default" type="button" value="Cancel" ng-show="operation == 'new' || operation == 'update'"
+								ng-click="cancelAction()">
+						</div>
+					</div>
+				</div>
+				<div id="deployments" class="tab-pane fade">
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Replicas</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="selected-{{entry._selected_}}" ng-repeat="entry in deploymentData" ng-click="showInfoForDeploymentEntry(entry)">
+								<td>{{entry.id}}</td>
+								<td>{{entry.name}}</td>
+								<td>{{entry.description}}</td>
+								<td>{{entry.replicas}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div>
+						<div>View <select ng-model="viewby" ng-change="setItemsPerPage(viewby)"><option>10</option><option>20</option><option>50</option><option selected>100</option></select> records.<div>
+			    		<uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" class="pagination-sm" items-per-page="itemsPerPage" max-size="maxSize" boundary-links="true" force-ellipses="true" rotate="false"></uib-pagination>
+					</div>
+					
+					
+					<ul class="nav nav-tabs">
+					  <li class="active" ng-click="showDeploymentTab()"><a data-toggle="tab" href="#deployment">Deployment</a></li>
+					  <li ng-click="showContainers(selectedDeploymentEntry.id)"><a data-toggle="tab" href="#containers">Containers</a></li>
+					  <li ng-click="showServices(selectedDeploymentEntry.id)"><a data-toggle="tab" href="#services">Services</a></li>
+					</ul>
+
+					<div class="tab-content">
+		  				<div id="deployment" class="tab-pane fade in active" ng-show="showTab == 1">
+							<br>
+							<!-- new, edit and delete buttons -->
+							<div class="btn-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+								<input class="btn btn-default" type="button" value="New" ng-click="setDeploymentOperation('new')" ng-disabled="errorMessage || deploymentOperation == 'new' || deploymentOperation == 'update'">
+								<input class="btn btn-default" type="button" value="Edit" ng-click="setDeploymentOperation('update')" ng-disabled="errorMessage || deploymentOperation == 'new' || deploymentOperation == 'update'">
+								<input class="btn btn-default" type="button" value="Delete" ng-click="deleteDeployment()" ng-disabled="errorMessage || deploymentOperation == 'new' || deploymentOperation == 'update'">
+							</div>
+							<br><br>
+							<div>
+								<!-- input form -->
+								<div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+										<label>#</label>
+										<input type="text" class="form-control" ng-model="selectedDeploymentEntry.id" readonly>
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<label>Name</label>
+										<input type="text" class="form-control" ng-model="selectedDeploymentEntry.name" ng-readonly="deploymentOperation == 'show'" required="required">
+									</div>
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<label>Description</label>
+										<input type="text" class="form-control"  ng-model="selectedDeploymentEntry.description" ng-readonly="deploymentOperation == 'show'" required="required">
+									</div>
+									<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+										<label>Replicas</label>
+										<input type="number" class="form-control text-right" pattern="\d*" step="1" ng-model="selectedDeploymentEntry.replicas" ng-readonly="deploymentOperation == 'show'" required="required">
+									</div>
+						
+									<!-- save and cancel buttons -->
+									<div class="btn-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<br>
+										<input class="btn btn-primary" type="button" value="Save" ng-show="deploymentOperation == 'new' || deploymentOperation == 'update'" ng-click="confirmDeploymentAction()"> 
+										<input class="btn btn-default" type="button" value="Cancel" ng-show="deploymentOperation == 'new' || deploymentOperation == 'update'" ng-click="cancelDeploymentAction()">
+									</div>
+								</div>
+							</div>
+					</div>
+						<div id="containers" class="tab-pane fade" ng-show="showTab == 2">
+							<table class="table table-condensed">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Name</th>
+										<th>Description</th>
+										<th>Image</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="entry in containers track by $index">
+										<td>{{entry.id}}</td>
+										<td>{{entry.name}}</td>
+										<td>{{entry.description}}</td>
+										<td>{{entry.image}}</td>
+										<td><button type="button" class="btn btn-xs btn-default btn-primary" ng-click="setContainerToBeRemoved(selectedDeploymentEntry.id, entry.id)" data-toggle="modal" data-target="#dialogRemoveContainer"><i class="fa fa-remove"></i></button></i></td>
+									</tr>
+								</tbody>
+							</table>
+							<button type="button" class="btn btn-default btn-primary" data-toggle="modal" data-target="#dialogAddContainer"><i class="fa fa-plus"></i> Add</button>
+					</div>
+					<div class="tab-content">
+		  				<div id="services" class="tab-pane fade in active" ng-show="showTab == 3">
+		  					<table class="table table-condensed">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Name</th>
+										<th>Description</th>
+										<th>Type</th>
+										<th>Port</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="entry in services">
+										<td>{{entry.id}}</td>
+										<td>{{entry.name}}</td>
+										<td>{{entry.description}}</td>
+										<td>{{getServiceTypeName(entry.type)}}</td>
+										<td>{{entry.port}}</td>
+										<td>
+											<button type="button" class="btn btn-xs btn-default btn-primary" style="margin-right:5%" ng-click="setServiceToBeUpdated(entry)" data-toggle="modal" data-target="#dialogUpdateService"><i class="fa fa-edit"></i></button></i>
+											<button type="button" class="btn btn-xs btn-default btn-danger" ng-click="setServiceToBeDeleted(entry)" data-toggle="modal" data-target="#dialogDeleteService"><i class="fa fa-remove"></i></button></i>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<button type="button" class="btn btn-default btn-primary" data-toggle="modal" data-target="#dialogCreateService"><i class="fa fa-plus"></i> Create</button>
+		  				</div>
+		  			</div>
+			</div>
+				</div>
+	</div>
+
+	<!-- Add Container Dialog -->
+	<div class="modal fade" id="dialogAddContainer" tabindex="-1" role="dialog" aria-labelledby="dialogAddContainerLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="dialogAddContainerLabel">Add Container</h4>
+				</div>
+				<div class="modal-body">
+					<select class="form-control" style="width:50%;display:initial" ng-model="newDeploymentContainer.container_template_id" ng-options="option.id as option.name for option in allContainers" required="required"></select>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="addContainer()" data-dismiss="modal">Add</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Add Container Dialog -->
+
+	<!-- Remove Container Dialog -->
+	<div class="modal fade" id="dialogRemoveContainer" tabindex="-1" role="dialog" aria-labelledby="dialogRemoveContainerLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="dialogRemoveContainerLabel">Remove Container</h4>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to remove Container <b>[<i>{{deleteDeploymentName}}</i>]</b> from deployment <b>[<i>{{deleteDeploymentNamespace}}</i>]</b>?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" ng-click="removeContainer()" data-dismiss="modal">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Remove Container Dialog -->
+
+	<!-- Create Service Dialog -->
+	<div class="modal fade" id="dialogCreateService" tabindex="-1" role="dialog" aria-labelledby="dialogCreateServiceLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="dialogCreateServiceLabel">Create Service</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group row">
+						<label class="col-xs-3 col-form-label">Name</label>
+						<div class="col-xs-9">
+							<input class="form-control" type="text" placeholder="Service Name" ng-model="createServiceEntity.name" required="required">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-xs-3 col-form-label">Description</label>
+						<div class="col-xs-9">
+							<input class="form-control" type="text" placeholder="Service Description" ng-model="createServiceEntity.description" required="required">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-xs-3 col-form-label">Type</label>
+						<div class="col-xs-9">
+							<select class="form-control" ng-model="createServiceEntity.type" ng-options="option.id as option.name for option in serviceTypes" required="required"></select>	
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-xs-3 col-form-label">Port</label>
+						<div class="col-xs-9">
+							<input type="number" class="form-control text-right" pattern="\d*" step="1" placeholder="Service Port" ng-model="createServiceEntity.port" required="required">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="createService()" data-dismiss="modal">Create</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Create Service Dialog -->
+
+	<!-- Update Service Dialog -->
+	<div class="modal fade" id="dialogUpdateService" tabindex="-1" role="dialog" aria-labelledby="dialogUpdateServiceLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="dialogUpdateServiceLabel">Update Service</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group row">
+						<label class="col-xs-3 col-form-label">Name</label>
+						<div class="col-xs-9">
+							<input class="form-control" type="text" placeholder="Service Name" ng-model="editServiceEntity.name" required="required">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-xs-3 col-form-label">Description</label>
+						<div class="col-xs-9">
+							<input class="form-control" type="text" placeholder="Service Description" ng-model="editServiceEntity.description" required="required">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-xs-3 col-form-label">Type</label>
+						<div class="col-xs-9">
+							<select class="form-control" ng-model="editServiceEntity.type" ng-options="option.id as option.name for option in serviceTypes" required="required"></select>	
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-xs-3 col-form-label">Port</label>
+						<div class="col-xs-9">
+							<input type="number" class="form-control text-right" pattern="\d*" step="1" placeholder="Service Port" ng-model="editServiceEntity.port" required="required">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="updateService()" data-dismiss="modal">Update</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Update Service Dialog -->
+
+	<!-- Remove Container Dialog -->
+	<div class="modal fade" id="dialogDeleteService" tabindex="-1" role="dialog" aria-labelledby="dialogDeleteServiceLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="dialogDeleteServiceLabel">Delete Service</h4>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure you want to delete Service <b>[<i>{{deleteDeploymentName}}</i>]</b> from deployment <b>[<i>{{deleteDeploymentNamespace}}</i>]</b>?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" ng-click="deleteService()" data-dismiss="modal">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Remove Container Dialog -->
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-resource.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
+	<script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
+
+	<script type="text/javascript">
+		angular.module('page', ['ngAnimate', 'ui.bootstrap']);
+		angular.module('page').controller('ManageController', function ($scope, $http) {
+			const DEPLOYMENT_TEMPLATES_URL = '../../../js-secured/zeus/templates/deployment.js';
+			const CONTAINER_TEMPLATES_URL = '../../../js-secured/zeus/templates/containers.js';
+			const DEPLOYMENT_CONTAINERS_URL = '../../../js-secured/zeus/templates/deploymentContainers.js';
+			const SERVICES_URL = '../../../js-secured/zeus/templates/services.js';
+			const SERVICE_TYPES_URL = '../../../js-secured/zeus/templates/serviceTypes.js';
+
+			$scope.deploymentOperation = 'show';
+			$scope.showTab = 1;
+			
+			$scope.getServiceTypeName = function(id) {
+				for (var i = 0 ; i < $scope.serviceTypes.length; i ++) {
+					if ($scope.serviceTypes[i].id === id) {
+						return $scope.serviceTypes[i].name;
+					}
+				}
+				return id;
+			};
+
+			$scope.showContainers = function(deploymentTemplateId) {
+				$scope.setShowTab('containers');
+				$scope.loadContainers(deploymentTemplateId);
+			};
+
+			$scope.showServices = function(deploymentTemplateId) {
+				$scope.setShowTab('services');
+				$scope.loadServices(deploymentTemplateId);
+			};
+
+			$scope.loadDeployments = function(applicationTemplateId) {
+				$http.get(DEPLOYMENT_TEMPLATES_URL+ '?applicationTemplateId=' +  applicationTemplateId).success(function(data){
+					$scope.deploymentData = data;
+				});
+			};
+
+			$scope.loadContainers = function(deploymentTemplateId) {
+				$http.get(DEPLOYMENT_CONTAINERS_URL + '?deploymentTemplateId=' + deploymentTemplateId).success(function(deploymentContainers) {
+					$scope.deploymentContainers = deploymentContainers;
+					$http.get(CONTAINER_TEMPLATES_URL).success(function(containers) {
+						$scope.containers = [];
+						$scope.allContainers = containers;
+						for (var i = 0 ; i < $scope.deploymentContainers.length; i ++) {
+							for (var j = 0 ; j < containers.length; j ++) {
+								if ($scope.deploymentContainers[i].container_template_id === containers[j].id) {
+									$scope.containers.push(containers[j]);
+								}
+							}
+						}
+					});
+				});
+			};
+
+			$scope.setContainerToBeRemoved = function(deploymentTemplateId, containerTemplateId) {
+				$scope.toBeRemovedDeploymentTemplateId = deploymentTemplateId;
+				$scope.toBeRemovedContainerTemplateId = containerTemplateId;
+			};
+
+			$scope.removeContainer = function() {
+				var deploymentTemplateId = $scope.toBeRemovedDeploymentTemplateId;
+				var containerTemplateId = $scope.toBeRemovedContainerTemplateId;
+				$scope.toBeRemovedDeploymentTemplateId = null;
+				$scope.toBeRemovedContainerTemplateId = null;
+				$http.get(DEPLOYMENT_CONTAINERS_URL + '?deploymentTemplateId=' + deploymentTemplateId).success(function(deploymentContainers) {
+					for (var i = 0 ; i < deploymentContainers.length; i ++) {
+						if (deploymentContainers[i].container_template_id === containerTemplateId && deploymentContainers[i].deployment_template_id === deploymentTemplateId) {
+							$http.delete(DEPLOYMENT_CONTAINERS_URL + '?id=' + deploymentContainers[i].id);
+						}
+					}
+					refreshData();
+				});
+			};
+
+			$scope.addContainer = function() {
+				$scope.newDeploymentContainer.deployment_template_id = $scope.selectedDeploymentEntry.id;
+				$http.post(DEPLOYMENT_CONTAINERS_URL, $scope.newDeploymentContainer).success(function() {
+					refreshData();
+				});
+			};
+			
+			$scope.loadServices = function(deploymentTemplateId) {
+				$http.get(SERVICES_URL + '?deploymentTemplateId=' + deploymentTemplateId).success(function(services) {
+					$scope.services = services;
+				});
+				$http.get(SERVICE_TYPES_URL).success(function(serviceTypes) {
+					$scope.serviceTypes = serviceTypes;
+				});
+			};
+
+			$scope.createService = function() {
+				$scope.createServiceEntity.deployment_template_id = $scope.selectedDeploymentEntry.id;
+				$http.post(SERVICES_URL, $scope.createServiceEntity);
+			};
+
+			$scope.setServiceToBeUpdated = function(entity) {
+				$scope.editServiceEntity = entity;
+			};
+
+			$scope.setServiceToBeDeleted = function(entity) {
+				$scope.deleteServiceEntity = entity;
+			};
+
+			$scope.updateService = function() {
+				$http.put(SERVICES_URL, $scope.editServiceEntity);
+				$scope.editServiceEntity = null;
+			};
+
+			$scope.deleteService = function() {
+				$http.delete(SERVICES_URL + '?id=' + $scope.deleteServiceEntity.id);
+				$scope.deleteServiceEntity = null;
+			};
+
+			$scope.setShowTab = function(tabName) {
+				if (tabName === 'deployment') {
+					$scope.showTab = 1;
+				} else if (tabName === 'containers') {
+					$scope.showTab = 2;
+				} else if (tabName === 'services') {
+					$scope.showTab = 3;
+				}
+			};
+
+			$scope.showDeploymentTab = function() {
+				$scope.setShowTab('deployment');
+			};
+
+			$scope.selectedEntry;
+            $scope.operation = 'show';
+            $scope.errorMessage = null;
+			
+			$scope.showInfoForDeploymentEntry = function(entry) {
+				if($scope.operation==='show'){
+					if($scope.selectedDeploymentEntry === entry){
+						$scope.showEntry = false;
+						$scope.selectedDeploymentEntry = null;
+						entry._selected_ = false;
+						$scope.deploymentContainers = [];
+						$scope.containers = [];
+						$scope.allContainers = [];
+						$scope.services = [];
+					}else{
+						for(var i = 0 ; i < $scope.deploymentData.length; i ++){
+							$scope.deploymentData[i]._selected_ = false;
+						}
+						entry._selected_ = true;
+						$scope.showEntry = true;
+						$scope.selectedDeploymentEntry = entry;
+						$scope.loadContainers(entry.id);
+						$scope.loadServices(entry.id);
+					}
+				}
+			};
+					
+			$scope.setDeploymentOperation = function(operation) {
+                      switch (operation) {
+                          case 'new':
+                              if ($scope.deploymentOperation !== 'new') {
+                            	  $scope.selectedDeploymentEntry = null;
+                                  $scope.deploymentOperation = 'new';
+                              } else {
+                                  $scope.deploymentOperation = 'show';
+                              }
+                              break;
+                          case 'update':
+                               if ($scope.deploymentOperation !== 'update') {
+                              	 if ($scope.selectedDeploymentEntry) {
+                                       $scope.deploymentOperation = 'update';
+                                   } else {
+                                       alert("Please first select entry for updated");
+                                       $scope.deploymentOperation = 'show';
+                                   }
+                              } else {
+                                  $scope.deploymentOperation = 'show';
+                              }
+                              break;
+                          case 'delete':
+                              if ($scope.deploymentOperation !== 'delete') {
+                                  $scope.deploymentOperation = 'delete';
+                              } else {
+                                  $scope.deploymentOperation = 'show';
+                              }
+                              break;
+                          default:
+                              $scope.deploymentOperation = 'show';
+                              break;
+                       }
+            };
+                   
+            $scope.confirmDeploymentAction = function() {
+                switch($scope.deploymentOperation){
+                    case 'show':
+                        break;
+                    case 'new':
+                        newDeploymentEntry($scope.selectedDeploymentEntry);
+                        break;
+                    case 'update':
+                        updateDeploymentEntry($scope.selectedDeploymentEntry);
+                        break;
+                }
+            };
+
+            $scope.cancelDeploymentAction = function() {
+                refreshDeploymentData();
+            };
+
+			$scope.deleteDeployment = function() {
+        	   	if($scope.selectedDeploymentEntry) {
+                 	var confirmed = confirm('Do you realy want to delete the selected entry?');
+	               	if(confirmed) {
+	                   	delete $scope.selectedDeploymentEntry._selected_;
+	                       deleteDeploymentEntry($scope.selectedDeploymentEntry);
+	                       $scope.deploymentOperation = 'show';
+	               	}                    	
+               	} else {
+                   	alert('Please select row from the table.');
+				}
+			};
+                    
+			function newDeploymentEntry(entry){
+				delete $scope.selectedDeploymentEntry._selected_;
+				entry.application_template_id = $scope.selectedEntry.id;
+				$http.post(DEPLOYMENT_TEMPLATES_URL, entry)
+				.success(function(){
+					refreshDeploymentData();
+					$scope.selectedDeploymentEntry = null;
+                    $scope.deploymentOperation = 'show';
+                    $scope.errorMessage = null;
+				})
+				.error(function(response){
+					$scope.errorMessage = response.err.message;
+				});
+			}
+			
+			function updateDeploymentEntry(entry){
+				delete $scope.selectedDeploymentEntry._selected_;
+				$http.put(DEPLOYMENT_TEMPLATES_URL, entry)
+					.success(function(){
+						refreshDeploymentData();
+	                    $scope.deploymentOperation = 'show';
+	                    $scope.errorMessage = null;
+					})
+					.error(function(response){
+						$scope.errorMessage = response.err.message;
+					});
+			}
+
+			function deleteDeploymentEntry(entry){
+				var primaryKey;
+				primaryKey = "id";
+				var deleteUrl = DEPLOYMENT_TEMPLATES_URL+"?"+primaryKey+"="+entry[primaryKey];
+				$http.delete(deleteUrl)
+				.success(function(){
+					refreshDeploymentData();
+                    $scope.selectedDeploymentEntry = null;
+					$scope.errorMessage = null;
+				})
+				.error(function(response){
+					$scope.errorMessage = response.err.message;
+				});
+			}
+                    
+			function refreshDeploymentData(){
+				$http.get(DEPLOYMENT_TEMPLATES_URL + '?applicationTemplateId=' + $scope.selectedEntry.id).success(function(data){
+					$scope.deploymentData = data;
+                    $scope.selectedDeploymentEntry = null;
+                    $scope.deploymentOperation = 'show';
+                    $scope.errorMessage = null;
+                    $scope.deploymentContainers = [];
+					$scope.containers = [];
+					$scope.allContainers = [];
+					$scope.services = [];
+				})
+				.error(function(response){
+					$scope.errorMessage = response.err.message;
+				});
+			}
+			
+			//pagination
+			$scope.viewby = 100;
+			var urlCount = DEPLOYMENT_TEMPLATES_URL + '?count';
+			$http.get(urlCount)
+				.success(function(count){
+					$scope.totalItems = count;
+				});
+				
+				$scope.currentPage = 1;
+				$scope.itemsPerPage = $scope.viewby;
+				$scope.maxSize = 5;
+			
+			$scope.setPage = function (pageNo) {
+			    $scope.currentPage = pageNo;
+			    $scope.pageChanged();
+			};
+			
+			$scope.pageChanged = function() {
+				var urlLimit = DEPLOYMENT_TEMPLATES_URL + '?offset=' + ($scope.viewby*($scope.currentPage-1) + '&limit=' + $scope.viewby);
+				$http.get(urlLimit)
+					.success(function(data){
+						$scope.data = data;
+					});
+			};
+			
+			$scope.setItemsPerPage = function(num) {
+			  	$scope.itemsPerPage = num;
+			  	$scope.setPage(1);
+			};
+			
+			var url = '../../../js-secured/zeus/templates/application.js';
+
+			$http.get(url)
+				.success(function(data){
+					$scope.data = data;
+				});
+			
+			$scope.selectedEntry;
+            $scope.operation = 'show';
+            $scope.errorMessage = null;
+			
+			$scope.showInfoForEntry = function(entry) {
+				if($scope.operation==='show'){
+					if($scope.selectedEntry === entry){
+						$scope.showEntry = false;
+						$scope.selectedEntry = null;
+						entry._selected_ = false;
+					}else{
+						for(var i = 0 ; i < $scope.data.length; i ++){
+							$scope.data[i]._selected_ = false;
+						}
+						entry._selected_ = true;
+						$scope.showEntry = true;
+						$scope.selectedEntry = entry;
+						$scope.loadDeployments(entry.id);
+					}
+				}
+			};
+					
+			$scope.setOperation = function(operation) {
+                      switch (operation) {
+                          case 'new':
+                              if ($scope.operation !== 'new') {
+                            	  $scope.selectedEntry = null;
+                                  $scope.operation = 'new';
+                              } else {
+                                  $scope.operation = 'show';
+                              }
+                              break;
+                          case 'update':
+                               if ($scope.operation !== 'update') {
+                              	 if ($scope.selectedEntry) {
+                                       $scope.operation = 'update';
+                                   } else {
+                                       alert("Please first select entry for updated");
+                                       $scope.operation = 'show';
+                                   }
+                              } else {
+                                  $scope.operation = 'show';
+                              }
+                              break;
+                          case 'delete':
+                              if ($scope.operation !== 'delete') {
+                                  $scope.operation = 'delete';
+                              } else {
+                                  $scope.operation = 'show';
+                              }
+                              break;
+                          default:
+                              $scope.operation = 'show';
+                              break;
+                       }
+            };
+                   
+            $scope.confirmAction = function() {
+                switch($scope.operation){
+                    case 'show':
+                        break;
+                    case 'new':
+                        newEntry($scope.selectedEntry);
+                        break;
+                    case 'update':
+                        updateEntry($scope.selectedEntry);
+                        break;
+                }
+            };
+
+            $scope.cancelAction = function() {
+                refreshData();
+            };
+
+			$scope.delete = function() {
+        	   	if($scope.selectedEntry) {
+                 	var confirmed = confirm('Do you realy want to delete the selected entry?');
+	               	if(confirmed) {
+	                   	delete $scope.selectedEntry._selected_;
+	                       deleteEntry($scope.selectedEntry);
+	                       $scope.operation = 'show';
+	               	}                    	
+               	} else {
+                   	alert('Please select row from the table.');
+				}
+			};
+                    
+			function newEntry(entry){
+				delete $scope.selectedEntry._selected_;
+				$http.post(url, entry)
+				.success(function(){
+					refreshData();
+					$scope.selectedEntry = null;
+                    $scope.operation = 'show';
+                    $scope.errorMessage = null;
+				})
+				.error(function(response){
+					$scope.errorMessage = response.err.message;
+				});
+			}
+			
+			function updateEntry(entry){
+				delete $scope.selectedEntry._selected_;
+				$http.put(url, entry)
+					.success(function(){
+						refreshData();
+	                    $scope.operation = 'show';
+	                    $scope.errorMessage = null;
+					})
+					.error(function(response){
+						$scope.errorMessage = response.err.message;
+					});
+			}
+
+			function deleteEntry(entry){
+				var primaryKey;
+				primaryKey = "id";
+				var deleteUrl = url+"?"+primaryKey+"="+entry[primaryKey];
+				$http.delete(deleteUrl)
+				.success(function(){
+					refreshData();
+                    $scope.selectedEntry = null;
+					$scope.errorMessage = null;
+				})
+				.error(function(response){
+					$scope.errorMessage = response.err.message;
+				});
+			}
+                    
+			function refreshData(){
+				$http.get(url)
+				.success(function(data){
+					$scope.data = data;
+                    $scope.selectedEntry = null;
+                    $scope.operation = 'show';
+                    $scope.errorMessage = null;
+				})
+				.error(function(response){
+					$scope.errorMessage = response.err.message;
+				});
+				refreshDeploymentData();
+			}
+			
+			$scope.dateOptions = {
+				startingDay: 1
+			};
+			$scope.formats = ['yyyy/MM/dd', 'dd-MMMM-yyyy', 'dd.MM.yyyy', 'shortDate'];
+  			$scope.format = $scope.formats[0];
+
+			
+			
+			//pagination
+			$scope.viewby = 100;
+			var urlCount = url + '?count';
+			$http.get(urlCount)
+				.success(function(count){
+					$scope.totalItems = count;
+				});
+				
+				$scope.currentPage = 1;
+				$scope.itemsPerPage = $scope.viewby;
+				$scope.maxSize = 5;
+			
+			$scope.setPage = function (pageNo) {
+			    $scope.currentPage = pageNo;
+			    $scope.pageChanged();
+			};
+			
+			$scope.pageChanged = function() {
+				var urlLimit = url + '?offset=' + ($scope.viewby*($scope.currentPage-1) + '&limit=' + $scope.viewby);
+				$http.get(urlLimit)
+					.success(function(data){
+						$scope.data = data;
+					});
+			};
+			
+			$scope.setItemsPerPage = function(num) {
+			  	$scope.itemsPerPage = num;
+			  	$scope.setPage(1);
+			}
+		});
+		
+	</script>
+	
+</body>
+</html>

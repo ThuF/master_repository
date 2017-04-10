@@ -1,0 +1,234 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Zeus_services Entity Service",
+        "description":"This is a RESTful web service for listing, viewing and managing entities of the type 'Zeus_services'"
+    },
+    "basePath":"/services",
+    "tags":[
+      {
+         "name":"Zeus_services",
+         "description":"View and manage Zeus_services objects"
+      }
+    ],
+    "paths": {
+        "/js/zeus/services/services.js": {
+            "get": {
+            	"tags":[
+               		"Zeus_services"
+            	],
+                "description": "Gets 'Zeus_services' objects.\n",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of all the records",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "service_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_services' object",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "metadata",
+                        "in": "query",
+                        "description": "Metadata of the 'Zeus_services' object",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort parameter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Descending order",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_services"
+                        }
+                    }
+                }
+            },
+            "post": {
+            	"tags":[
+               		"Zeus_services"
+            	],
+                "description": "Creates a new 'Zeus_services' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Zeus_services object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Zeus_services"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_services"
+                        }
+                    }
+                }
+            },
+            "put": {
+            	"tags":[
+               		"Zeus_services"
+            	],
+                "description": "Updates an existing 'Zeus_services' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Zeus_services object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Zeus_services"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_services"
+                        }
+                    }
+                }
+            },
+            "delete": {
+            	"tags":[
+               		"Zeus_services"
+            	],
+                "description": "Deletes 'Zeus_services' objects.\n",
+                "parameters": [
+                    {
+                        "name": "service_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_services' object",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_services"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Zeus_services": {
+	        "type":"object",
+	        "properties": {
+        		"service_id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"service_name": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"service_url": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"service_definition": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"service_type": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"service_owner": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"service_contact": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"service_description": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"service_notes": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"service_registered_at": {
+	            	"type": 
+        "number"
+	    		}
+				,
+        		"service_registered_by": {
+	            	"type": 
+        "string"
+	    		}
+	        }
+        }
+	}
+}

@@ -1,0 +1,214 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Zeus_sites Entity Service",
+        "description":"This is a RESTful web service for listing, viewing and managing entities of the type 'Zeus_sites'"
+    },
+    "basePath":"/services",
+    "tags":[
+      {
+         "name":"Zeus_sites",
+         "description":"View and manage Zeus_sites objects"
+      }
+    ],
+    "paths": {
+        "/js/zeus/sites/sites.js": {
+            "get": {
+            	"tags":[
+               		"Zeus_sites"
+            	],
+                "description": "Gets 'Zeus_sites' objects.\n",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of all the records",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "site_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_sites' object",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "metadata",
+                        "in": "query",
+                        "description": "Metadata of the 'Zeus_sites' object",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort parameter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Descending order",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_sites"
+                        }
+                    }
+                }
+            },
+            "post": {
+            	"tags":[
+               		"Zeus_sites"
+            	],
+                "description": "Creates a new 'Zeus_sites' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Zeus_sites object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Zeus_sites"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_sites"
+                        }
+                    }
+                }
+            },
+            "put": {
+            	"tags":[
+               		"Zeus_sites"
+            	],
+                "description": "Updates an existing 'Zeus_sites' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Zeus_sites object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Zeus_sites"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_sites"
+                        }
+                    }
+                }
+            },
+            "delete": {
+            	"tags":[
+               		"Zeus_sites"
+            	],
+                "description": "Deletes 'Zeus_sites' objects.\n",
+                "parameters": [
+                    {
+                        "name": "site_id",
+                        "in": "query",
+                        "description": "Identifier of the 'Zeus_sites' object",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Zeus_sites"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Zeus_sites": {
+	        "type":"object",
+	        "properties": {
+        		"site_id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"site_name": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"site_url": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"site_description": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"site_notes": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"site_registered_at": {
+	            	"type": 
+        "number"
+	    		}
+				,
+        		"site_registered_by": {
+	            	"type": 
+        "string"
+	    		}
+	        }
+        }
+	}
+}

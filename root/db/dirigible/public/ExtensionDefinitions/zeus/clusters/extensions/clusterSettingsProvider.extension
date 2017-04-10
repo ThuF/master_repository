@@ -1,0 +1,5 @@
+{
+  "extension":"/zeus/clusters/extensions/clusterSettingsProvider",
+  "extension-point":"/zeus/deployer/extension_points/clusterSettingsProvider",
+  "description":"description for the extension pscClusterSettingsProvider"
+}

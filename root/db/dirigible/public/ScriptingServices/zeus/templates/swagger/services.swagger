@@ -1,0 +1,209 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "0.0.0",
+        "title": "Service_templates Entity Service",
+        "description":"This is a RESTful web service for listing, viewing and managing entities of the type 'Service_templates'"
+    },
+    "basePath":"/services",
+    "tags":[
+      {
+         "name":"Service_templates",
+         "description":"View and manage Service_templates objects"
+      }
+    ],
+    "paths": {
+        "/js/zeus/templates/services.js": {
+            "get": {
+            	"tags":[
+               		"Service_templates"
+            	],
+                "description": "Gets 'Service_templates' objects.\n",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Count of all the records",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Identifier of the 'Service_templates' object",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "metadata",
+                        "in": "query",
+                        "description": "Metadata of the 'Service_templates' object",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset of the objects list",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort parameter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "desc",
+                        "in": "query",
+                        "description": "Descending order",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Service_templates"
+                        }
+                    }
+                }
+            },
+            "post": {
+            	"tags":[
+               		"Service_templates"
+            	],
+                "description": "Creates a new 'Service_templates' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Service_templates object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Service_templates"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Service_templates"
+                        }
+                    }
+                }
+            },
+            "put": {
+            	"tags":[
+               		"Service_templates"
+            	],
+                "description": "Updates an existing 'Service_templates' object.\n",
+                "consumes":[
+	               "application/json"
+	            ],
+	            "produces":[
+	               "plain/text"
+	            ],
+	            "parameters":[
+	               {
+	                  "in":"body",
+	                  "name":"body",
+	                  "description":"Service_templates object that needs to be added",
+	                  "required":true,
+	                  "schema":{
+	                     "$ref":"#/definitions/Service_templates"
+	                  }
+	               }
+	            ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Service_templates"
+                        }
+                    }
+                }
+            },
+            "delete": {
+            	"tags":[
+               		"Service_templates"
+            	],
+                "description": "Deletes 'Service_templates' objects.\n",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Identifier of the 'Service_templates' object",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema":{
+		                     "$ref":"#/definitions/Service_templates"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Service_templates": {
+	        "type":"object",
+	        "properties": {
+        		"id": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"name": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"description": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"port": {
+	            	"type": 
+        "integer"
+	    		}
+				,
+        		"type": {
+	            	"type": 
+        "string"
+	    		}
+				,
+        		"deployment_template_id": {
+	            	"type": 
+        "integer"
+	    		}
+	        }
+        }
+	}
+}
